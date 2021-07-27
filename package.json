@@ -1,0 +1,25 @@
+{
+  "name": "tasktime-backend",
+  "version": "1.0.0",
+  "description": "this is backend app of tasktime",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahsabbir103/tasktime-express.git"
+  },
+  "keywords": [
+    "tasktime"
+  ],
+  "author": "ahsabbir103@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahsabbir103/tasktime-express/issues"
+  },
+  "homepage": "https://github.com/ahsabbir103/tasktime-express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
