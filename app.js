@@ -1,19 +1,27 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const uri = "mongodb+srv://ahsabbir103:sabbir.setpass.mongodb@tasktime.lypfc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const express =     require('express')
+const mongoose =    require('mongoose')
+const AuthRoute =  require('./routers/auth/auth')   
+// const userRouters = require("./routers/users")
+// const createUsers = require("./routers/auth/createUser")
+
+const uri = "mongodb+srv://ahsabbir103:sabbir.setpass.mongodb@tasktime.lypfc.mongodb.net/TaskTimeDatabase?retryWrites=true&w=majority";
 
 const app = express()
 
 mongoose.connect(uri, { useNewUrlParser: true})
 
 const conn = mongoose.connection
-
 conn.on('open',()=>{
     console.log("connected ...")
 })
+app.use(express.json())
 
-const userRouters = require("./routers/users")
-app.use('/user',userRouters)
+
+// *******************    All routes ***********
+app.use('/api',AuthRoute)
+// app.use('/user',userRouters)
+// app.use('/registration',createUsers)
+
 
 
 app.listen(9000,()=>{
