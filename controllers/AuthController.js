@@ -53,6 +53,7 @@ const login = (req,res,next)=>{
                         message:"Login Successful!",
                         token
                     })
+                    // User.insert({"token":token})
                 }else{
                     res.json({
                         message:"password does not matched!"

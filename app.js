@@ -8,7 +8,12 @@ const uri = "mongodb+srv://ahsabbir103:sabbir.setpass.mongodb@tasktime.lypfc.mon
 
 const app = express()
 
-mongoose.connect(uri, { useUnifiedTopology: true })
+mongoose.connect(uri, {      
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false, 
+})
 
 const conn = mongoose.connection
 conn.on('open',()=>{
@@ -19,11 +24,11 @@ app.use(express.json())
 
 // *******************    All routes ***********
 app.use('/api',AuthRoute)
-app.use('',()=>{
-    const router = express.Router()
-    router.get('',(req,res)=>{
-        res.send("home")
-    })
+
+app.get('/',(req,res)=>{
+    const authHeader = req.headers.authorization;
+    console.log(authHeader)
+    res.send("hello tasktime")
 })
 // app.use('/user',userRouters)
 // app.use('/registration',createUsers)
