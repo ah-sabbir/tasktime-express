@@ -26,7 +26,7 @@ const register = (req,res,next)=>{
         })
         .catch(error=>{
             res.json({
-                message: error
+                message: "error "
             })
         })
     })
