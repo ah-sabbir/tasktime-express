@@ -1,6 +1,6 @@
 const express =     require('express')
 const mongoose =    require('mongoose')
-const AuthRoute =  require('./routers/auth/auth')   
+const AuthRoute =  require('./routers/auth/auth')
 // const userRouters = require("./routers/users")
 // const createUsers = require("./routers/auth/createUser")
 
@@ -8,7 +8,7 @@ const uri = "mongodb+srv://ahsabbir103:sabbir.setpass.mongodb@tasktime.lypfc.mon
 
 const app = express()
 
-mongoose.connect(uri, { useNewUrlParser: true})
+mongoose.connect(uri, { useUnifiedTopology: true })
 
 const conn = mongoose.connection
 conn.on('open',()=>{
@@ -19,14 +19,18 @@ app.use(express.json())
 
 // *******************    All routes ***********
 app.use('/api',AuthRoute)
+app.use('',()=>{
+    const router = express.Router()
+    router.get('',(req,res)=>{
+        res.send("home")
+    })
+})
 // app.use('/user',userRouters)
 // app.use('/registration',createUsers)
 
 
 
-app.listen(9000,()=>{
-    console.log("server started ...")
-})
+app.listen(process.env.PORT || 3000)
 
 
 
