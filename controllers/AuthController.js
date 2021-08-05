@@ -11,23 +11,24 @@ const register = (req,res,next)=>{
                 error:err
             })
         }
-        let user = new User({
-            name: req.body.name,
-            phone:req.body.phone,
-            email: req.body.email,
-            password: hashedPass
+    })
+    
+    let user = new User({
+        name: req.body.name,
+        phone:req.body.phone,
+        email: req.body.email,
+        password: hashedPass
+    })
+    
+    user.save()
+    .then(user=>{
+        res.json({
+            message:'Successfully registered !'
         })
-        
-        user.save()
-        .then(user=>{
-            res.json({
-                message:'Successfully registered !'
-            })
-        })
-        .catch(error=>{
-            res.json({
-                message: "error "
-            })
+    })
+    .catch(error=>{
+        res.json({
+            message: "error "
         })
     })
 }
