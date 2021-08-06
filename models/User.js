@@ -7,9 +7,6 @@ const userScama = new Schema({
         type:String,
         required:true
     },
-    phone:{
-        type:String
-    },
     email:{
         type:String,
         unique:true,
@@ -18,7 +15,9 @@ const userScama = new Schema({
     password:{
         type:String,
         required:true
-    }
+    },
+    super_user_id : String,
+    active        : Boolean
     // token: { type: String },
 },{timestamps:true})
 
