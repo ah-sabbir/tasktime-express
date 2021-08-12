@@ -1,7 +1,8 @@
 const express =     require('express')
 const mongoose =    require('mongoose')
 const AuthRoute =  require('./routers/auth/auth')
-
+const authorized = require('./middleware/authorization-middleware')
+const TaskRoute = require('./routers/tasktime/taskTime')
 
 const app = express()
 app.use(express.json())
@@ -25,27 +26,17 @@ conn.on('open',()=>{
 
 // *******************    All routes ***********
 app.use('/api',AuthRoute)
+app.use('/api',authorized(), TaskRoute)
 
-app.get('/',(req,res)=>{
-    const authHeader = req.headers.authorization;
-    console.log(authHeader)
-    res.send("hello tasktime")
-})
+// app.get('/',(req,res)=>{
+//     const authHeader = req.headers.authorization;
+//     console.log(authHeader)
+//     res.send("hello tasktime")
+// })
 // app.use('/user',userRouters)
 // app.use('/registration',createUsers)
 
 
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 2000)
 
-
-
-
-// const { MongoClient } = require('mongodb');
-// const uri = "mongodb+srv://ahsabbir103:<password>@tasktime.lypfc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
