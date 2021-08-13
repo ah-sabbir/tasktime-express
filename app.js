@@ -26,7 +26,7 @@ conn.on('open',()=>{
 
 // *******************    All routes ***********
 app.use('/api',AuthRoute)
-app.use('/api',authorized(), TaskRoute)
+app.use('/api', TaskRoute)
 
 // app.get('/',(req,res)=>{
 //     const authHeader = req.headers.authorization;

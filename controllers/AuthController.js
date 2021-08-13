@@ -52,7 +52,7 @@ const login = (req,res,next)=>{
                 }
 
                 if(result){
-                    let token = jwt.sign({name:user.name},'verysecretkey',{expiresIn:'1h'})
+                    let token = jwt.sign({name:user.email},'verysecretkey',{expiresIn:'24h'})
                     res.json({
                         message:"Login Successful!",
                         token
@@ -74,6 +74,7 @@ const login = (req,res,next)=>{
 
 
 const logout = (req,res)=>{
+    req.token = null
     res.clearCookie('jwt');
     res.redirect('api/login');
 }
