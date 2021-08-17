@@ -1,16 +1,9 @@
-const { Int32 } = require('mongodb')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
 const tasktimeDataSchema = new Schema({
-    cpuTime:{
-        type:String,
-    },
     imageName:{
-        type:String,
-    },
-    memUsage:{
         type:String,
     },
     pid:{
@@ -19,13 +12,16 @@ const tasktimeDataSchema = new Schema({
     sessionName:{
         type:String,
     },
-    sessionNumber: {
-        type:String
+    memUsage:{
+        type:String,
     },
     status:{
         type:String,
     },
-    username:{
+    username: {
+        type:String
+    },
+    cpuTime:{
         type:String,
     },
     windowTitle:{

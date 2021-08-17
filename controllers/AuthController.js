@@ -4,11 +4,7 @@ const jwt       = require('jsonwebtoken')
 
 
 const register = (req,res,next)=>{
-    let body = {
-       "name": req.body.name,
-        "email": req.body.email,
-        "password":req.body.password
-    }
+    
     bcrypt.hash(body.password, 10, (err, hashedPass)=>{
         if(err){
             res.json({
@@ -60,13 +56,13 @@ const login = (req,res,next)=>{
                     // User.insert({"token":token})
                 }else{
                     res.json({
-                        message:"password does not matched!"
+                        message:"password does not matched!",
                     })
                 }
             })
         }else{
             res.json({
-                message:"no user found"
+                message:"no user found",
             })
         }
     })
