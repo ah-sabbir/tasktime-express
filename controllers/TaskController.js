@@ -10,8 +10,9 @@ const getTasks = (req, res, next) => {
 const postTasks = async (req, res, next) =>{
     // console.log(req.body)
 
-    const isExist = tasksModel.exists({ windowTitle: req.body.windowTitle }, (err,response)=>{
-        if(!response){
+
+    tasksModel.findOne({ windowTitle: req.body.windowTitle }).select("_id").lean().then(result => {
+        if (!result) {
             let task = new tasksModel({
                 imageName: req.body.imageName,
                 pid: req.body.pid,
@@ -27,16 +28,18 @@ const postTasks = async (req, res, next) =>{
             task.save()
                 .then(ress=> true)
         }else{
-            return "doc is exists"
+            tasksModel.findOne({_id:result._id}, (err,obj)=> { 
+                if(parseInt(obj.cpuTime) !== parseInt(req.body.cpuTime)){
+                    let oldCPU_time = parseInt(obj.cpuTime)
+                    let newCPU_time = parseInt(req.body.cpuTime) + oldCPU_time
+                    tasksModel.updateOne({_id:obj._id}, {$set: { cpuTime: newCPU_time.toString() }}, {upsert: true},(err,ob)=> true)
+                }    
+            })
         }
-    })
-    
-
-
+    });
 
     return res.json({
-        message:'post tasks here',
-        status: isExist
+        message:'post tasks here'
     })
 }
 
