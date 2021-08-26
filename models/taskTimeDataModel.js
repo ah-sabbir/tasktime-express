@@ -3,6 +3,9 @@ const Schema = mongoose.Schema
 
 
 const tasktimeDataSchema = new Schema({
+    events:{
+        type:Schema.Types.Mixed,
+    },
     imageName:{
         type:String,
     },
@@ -28,8 +31,10 @@ const tasktimeDataSchema = new Schema({
         type:String,
     },
     super_user_id : String,
-    active        : Boolean
+    active        : Boolean,
     // token: { type: String },
+    expireAt:{
+    }
 },{timestamps:true})
 
 const TasksDB = mongoose.model("Tasks",tasktimeDataSchema)

@@ -11,9 +11,10 @@ const postTasks = async (req, res, next) =>{
     // console.log(req.body)
 
 
-    tasksModel.findOne({ windowTitle: req.body.windowTitle }).select("_id").lean().then(result => {
+    tasksModel.findOne({ windowTitle: req.body.windowTitle }).select("_id").lean().then( async(result) => {
         if (!result) {
             let task = new tasksModel({
+                tasks: req.body.events,
                 imageName: req.body.imageName,
                 pid: req.body.pid,
                 sessionName: req.body.sessionName,
@@ -25,16 +26,17 @@ const postTasks = async (req, res, next) =>{
                 windowTitle: req.body.windowTitle,
                 super_user_id:req.user_id.name
             })
+            task.markModified('anything');
             task.save()
                 .then(ress=> true)
         }else{
-            tasksModel.findOne({_id:result._id}, (err,obj)=> { 
-                if(parseInt(obj.cpuTime) !== parseInt(req.body.cpuTime)){
-                    let oldCPU_time = parseInt(obj.cpuTime)
-                    let newCPU_time = parseInt(req.body.cpuTime) + oldCPU_time
-                    tasksModel.updateOne({_id:obj._id}, {$set: { cpuTime: newCPU_time.toString() }}, {upsert: true},(err,ob)=> true)
-                }    
-            })
+            let task = await  tasksModel.findById(result._id)
+            if(parseInt(task.cpuTime) !== parseInt(req.body.cpuTime)){
+                task.cpuTime = parseInt(task.cpuTime)+parseInt(req.body.cpuTime)
+            }
+            task.events = req.body.events
+            task.markModified('anything');
+            task.save()
         }
     });
 
