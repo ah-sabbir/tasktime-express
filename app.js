@@ -21,7 +21,17 @@ conn.on('open',()=>{
     console.log("connected ...")
 })
 
+// conn.on('open', function () {
+//     conn.db.listCollections().toArray(function (err, names) {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log(names);
+//       }
 
+//       mongoose.connection.close();
+//     });
+// });
 
 
 // *******************    All routes ***********
