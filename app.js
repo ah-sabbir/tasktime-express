@@ -3,9 +3,10 @@ const mongoose =    require('mongoose')
 const AuthRoute =  require('./routers/auth/auth')
 const authorized = require('./middleware/authorization-middleware')
 const TaskRoute = require('./routers/tasktime/taskTime')
-
+const cors = require('cors')
 const app = express()
 app.use(express.json())
+app.use(cors());
 
 
 const uri = "mongodb+srv://ahsabbir103:sabbir.setpass.mongodb@tasktime.lypfc.mongodb.net/TaskTimeDatabase?retryWrites=true&w=majority";
