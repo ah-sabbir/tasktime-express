@@ -2,15 +2,15 @@ const { exists } = require('../models/taskTimeDataModel')
 const tasksModel = require('../models/taskTimeDataModel')
 
 const getTasks = (req, res, next) => {
-    
-    return res.json({
-        message: 'Task time is here'
+    tasksModel.find({},(error,data)=>{
+        return res.json({
+            "data":data
+        })
     })
 }
 
 const postTasks = async (req, res, next) =>{
     // console.log(req.body)
-
 
     tasksModel.findOne({ windowTitle: req.body.windowTitle }).select("_id").lean().then( async(result) => {
         if (!result) {
