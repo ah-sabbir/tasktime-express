@@ -1,23 +1,24 @@
-const express =     require('express')
-const mongoose =    require('mongoose')
-const AuthRoute =  require('./routers/auth/auth')
+const express = require('express')
+const mongoose = require('mongoose')
+const AuthRoute = require('./routers/auth/auth')
 const authorized = require('./middleware/authorization-middleware')
 const TaskRoute = require('./routers/tasktime/taskTime')
-
+var cors = require('cors')
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 
 const uri = "mongodb+srv://ahsabbir103:sabbir.setpass.mongodb@tasktime.lypfc.mongodb.net/TaskTimeDatabase?retryWrites=true&w=majority";
-mongoose.connect(uri, {      
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false, 
+    useFindAndModify: false,
 })
 
 const conn = mongoose.connection
-conn.on('open',()=>{
+conn.on('open', () => {
     console.log("connected ...")
 })
 
@@ -35,7 +36,7 @@ conn.on('open',()=>{
 
 
 // *******************    All routes ***********
-app.use('/api',AuthRoute)
+app.use('/api', AuthRoute)
 app.use('/api', TaskRoute)
 
 // app.get('/',(req,res)=>{
@@ -49,4 +50,3 @@ app.use('/api', TaskRoute)
 
 
 app.listen(process.env.PORT || 2000)
-
