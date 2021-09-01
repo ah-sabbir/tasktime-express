@@ -1,34 +1,51 @@
+import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link'
+import React, { useContext, useState } from 'react';
+import ActiveLink from './ActiveLinke';
 
-const Navbar = () => {
-
+interface Props {
+    hidden: string;
+}
+const Navbar = (props: Props) => {
+    const [style, setStyle] = useState(props.hidden)
+    const router = useRouter()
     return (
-        <div className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-900 z-20" id="nav-content">
+        <div className={"w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block mt-2 lg:mt-0 bg-gray-900 z-20 "+style} id="nav-content">
         <ul className="list-reset lg:flex flex-1 items-center px-4 md:px-0">
+            
+            <ActiveLink href="/">
             <li className="mr-6 my-2 md:my-0">
-                <a href="#" className="block py-1 md:py-3 pl-1 align-middle text-blue-400 no-underline hover:text-gray-100 border-b-2 border-blue-400 hover:border-blue-400">
-                    <i className="fas fa-home fa-fw mr-3 text-blue-400"></i><span className="pb-1 md:pb-0 text-sm">Home</span>
-                </a>
+                    <i className="fas fa-home fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Home</span>
             </li>
+            </ActiveLink>
+
+            <ActiveLink href="/Tasks/Index">
             <li className="mr-6 my-2 md:my-0">
-                <a href="#" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-pink-400">
                     <i className="fas fa-tasks fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Tasks</span>
-                </a>
             </li>
+            </ActiveLink>
+
+            <ActiveLink href="/Messages/Index">
             <li className="mr-6 my-2 md:my-0">
-                <a href="#" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-purple-400">
                     <i className="fa fa-envelope fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Messages</span>
-                </a>
             </li>
+            </ActiveLink>
+
+            <ActiveLink href="/Analytics/Index">
             <li className="mr-6 my-2 md:my-0">
-                <a href="#" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-green-400">
+               
                     <i className="fas fa-chart-area fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Analytics</span>
-                </a>
+                
             </li>
+            </ActiveLink>
+
+            <ActiveLink href="/Payments/Index">
             <li className="mr-6 my-2 md:my-0">
-                <a href="#" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-red-400">
+                
                     <i className="fa fa-wallet fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Payments</span>
-                </a>
+               
             </li>
+            </ActiveLink>
         </ul>
 
         <div className="relative pull-right pl-4 pr-4 md:pr-0">

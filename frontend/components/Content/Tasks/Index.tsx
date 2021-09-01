@@ -13,8 +13,11 @@ class Index extends React.Component<IndexProps, IndexState> {
     render() { 
         return ( 
             <React.Fragment>
-                this is task
+                
+                <div className="w-full">
 
+                </div>
+                
             </React.Fragment>
          );
     }
