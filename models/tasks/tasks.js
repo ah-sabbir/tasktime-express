@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-const tasktimeDataSchema = new Schema({
+const tasks = new Schema({
     events:{
         type:Schema.Types.Mixed,
     },
@@ -30,13 +30,13 @@ const tasktimeDataSchema = new Schema({
     windowTitle:{
         type:String,
     },
-    super_user_id : String,
+    user_id : String,
     active        : Boolean,
     // token: { type: String },
     expireAt:{
     }
 },{timestamps:true})
 
-const TasksDB = mongoose.model("Tasks",tasktimeDataSchema)
+const Tasks = mongoose.model("Tasks",tasks)
 
-module.exports = TasksDB
+module.exports = Tasks

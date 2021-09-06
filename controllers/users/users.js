@@ -1,4 +1,4 @@
-const User      = require('../models/User')
+const {adminUser, generalUser}     = require('../../models/users/users')
 const bcrypt    = require('bcryptjs')
 const jwt       = require('jsonwebtoken')
 
@@ -14,6 +14,8 @@ const register = (req,res,next)=>{
         let user = new User({
             name: req.body.name,
             email: req.body.email,
+            phone: req.body.phone,
+            address: req.body.address,
             password:hashedPass
         })
         user.save()
@@ -75,7 +77,9 @@ const logout = (req,res)=>{
     res.redirect('api/login');
 }
 
-
+const addUser = (req,res){
+    
+}
 
 module.exports = {
     register, login, logout

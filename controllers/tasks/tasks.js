@@ -1,8 +1,14 @@
 const { exists } = require('../models/taskTimeDataModel')
 const tasksModel = require('../models/taskTimeDataModel')
+const moment = require('moment');
 
-const getTasks = (req, res, next) => {
-    tasksModel.find({},(error,data)=>{
+const getTasks = async (req, res, next) => {
+    await tasksModel.find({
+        "createdAt":{
+                $gte: moment().subtract(1, 'days').toString(),
+                $lt: moment().subtract(0, 'days').toString()
+        }
+    },(error,data)=>{
         return res.json({
             "data":data
         })
@@ -12,7 +18,7 @@ const getTasks = (req, res, next) => {
 const postTasks = async (req, res, next) =>{
     // console.log(req.body)
 
-    tasksModel.findOne({ windowTitle: req.body.windowTitle }).select("_id").lean().then( async(result) => {
+    await tasksModel.findOne({ windowTitle: req.body.windowTitle }).select("_id").lean().then( async(result) => {
         if (!result) {
             let task = new tasksModel({
                 tasks: req.body.events,
